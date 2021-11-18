@@ -1,0 +1,82 @@
+<main class="d-flex flex-column">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">Administration</li>
+      <li class="breadcrumb-item"><a href="admin_posts_index.php">Gestion des articles</a></li>
+      <li class="breadcrumb-item"><a href="show_post.php?id=<?= intval($post['Id']) ?>"><?= htmlspecialchars($post['Title'])?></a></li>
+      <li class="breadcrumb-item active" aria-current="page">Modifier cet article</li>
+    </ol>
+  </nav>
+  <div class="flex-grow-1 d-md-flex align-items-stretch">
+    <?php include 'admin_menu.phtml'; ?>
+    <form method="post" action="admin_posts_edit.php" class="col-md-7 py-4 mx-auto">
+      <input type="hidden" name="id" value ="<?= intval($post['Id']) ?>">
+      <fieldset>
+        <legend class="text-center display-4 mb-5">Mise à jour d'un article</legend>
+        <div class="form-row align-items-center mb-2">
+          <div class="col-6">
+            <label for="category">Catégorie de l'article</label>
+            <select id="category" name="category" class="custom-select">
+              <option>Choisir une catégorie</option>
+              <?php foreach($categories as $category ) : ?>
+                <?php if( $category['Id'] == $post['Category_Id'] ) : ?>
+                  <option
+                    selected
+                    value="<?= htmlspecialchars( $category['Id'] ) ?>">
+                    <?= htmlspecialchars( $category['Name'] ) ?>
+                  </option>
+                <?php else : ?>
+                  <option
+                    value="<?= htmlspecialchars( $category['Id'] ) ?>">
+                    <?= htmlspecialchars( $category['Name'] ) ?>
+                  </option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for="author">Auteur</label>
+            <select id="author" name="author" class="custom-select">
+              <option>Choisir un auteur</option>
+              <?php foreach($authors as $author ) : ?>
+                <?php if( $author['Id'] == $post['Author_Id'] ) : ?>
+                  <option
+                    selected
+                    value="<?= intval( $author['Id'] ) ?>">
+                    <?= htmlspecialchars( $author['FirstName'] ) ?>
+                    <?= htmlspecialchars( $author['LastName'] ) ?>
+                  </option>
+                <?php else : ?>
+                  <option
+                    value="<?= intval( $author['Id'] ) ?>">
+                    <?= htmlspecialchars( $author['FirstName'] ) ?>
+                    <?= htmlspecialchars( $author['LastName'] ) ?>
+                  </option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="title">Titre de l'article</label>
+          <input
+            id="title"
+            name="title"
+            value="<?= htmlspecialchars($post['Title'])?>"
+            type="text"
+            class="form-control"
+            placeholder="Saisir un titre évocateur">
+        </div>
+        <div class="form-group">
+          <label for="contents">Texte de l'article</label>
+          <textarea
+            id="contents"
+            name="contents"
+            class="form-control"
+            rows="8"><?= htmlspecialchars($post['Contents'])?></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </fieldset>
+    </form>
+  </div>
+</main>

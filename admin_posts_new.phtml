@@ -1,0 +1,101 @@
+<main class="d-flex flex-column">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">Administration</li>
+      <li class="breadcrumb-item"><a href="admin_posts_index.php">Gestion des articles</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Créer un nouvel article</li>
+    </ol>
+  </nav>
+  <div class="flex-grow-1 d-md-flex align-items-stretch">
+    <?php include 'admin_menu.phtml'; ?>
+    <form method="post" class="col-md-7 py-4 mx-auto" novalidate>
+      <fieldset>
+        <legend class="text-center display-4 mb-5">Rédiger un article</legend>
+        <div class="form-row align-items-center mb-3">
+          <div class="col-6">
+            <label for="category">Catégorie de l'article</label>
+            <select
+              id="category"
+              name="category"
+              class="custom-select<?php if( !empty($error['category']) ) : ?> is-invalid<?php endif; ?>">
+              <option>Choisir une catégorie</option>
+              <?php foreach($categories as $category ) : ?>
+                <?php if( $category['Id'] == $categoryPost ) : ?>
+                  <option
+                    selected
+                    value="<?= htmlspecialchars( $category['Id'] ) ?>">
+                    <?= htmlspecialchars( $category['Name'] ) ?>
+                  </option>
+                <?php else : ?>
+                  <option
+                    value="<?= htmlspecialchars( $category['Id'] ) ?>">
+                    <?= htmlspecialchars( $category['Name'] ) ?>
+                  </option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
+            <?php if( !empty($error['category']) ) : ?>
+            <div class="invalid-feedback"><?= $error['category'] ?></div>
+            <?php endif; ?>
+          </div>
+          <div class="col-6">
+            <label for="author">Auteur</label>
+              <select
+                id="author"
+                name="author"
+                class="custom-select<?php if( !empty($error['author']) ) : ?> is-invalid<?php endif; ?>">
+              <option>Choisir un auteur</option>
+              <?php foreach($authors as $author ) : ?>
+                <?php if( $author['Id'] == $authorPost ) : ?>
+                  <option
+                    selected
+                    value="<?= intval( $author['Id'] ) ?>">
+                    <?= htmlspecialchars( $author['FirstName'] ) ?>
+                    <?= htmlspecialchars( $author['LastName'] ) ?>
+                  </option>
+                <?php else : ?>
+                  <option
+                    value="<?= intval( $author['Id'] ) ?>">
+                    <?= htmlspecialchars( $author['FirstName'] ) ?>
+                    <?= htmlspecialchars( $author['LastName'] ) ?>
+                  </option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
+            <?php if( !empty($error['author']) ) : ?>
+            <div class="invalid-feedback"><?= $error['author'] ?></div>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="title">Titre de l'article</label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            class="form-control<?php if( !empty($error['title']) ) : ?> is-invalid<?php endif; ?>"
+            required
+            value="<?= $titlePost; ?>"
+            placeholder="Saisir un titre évocateur">
+            <?php if( !empty($error['title']) ) : ?>
+            <div class="invalid-feedback"><?= $error['title'] ?></div>
+            <?php endif; ?>
+        </div>
+        <div
+          class="form-group">
+          <label for="content">Texte de l'article</label>
+          <textarea
+            id="content"
+            name="content"
+            class="form-control<?php if( !empty($error['content']) ) : ?> is-invalid<?php endif; ?>"
+            spellcheck="true"
+            rows="8"><?= $contentPost ?></textarea>
+            <?php if( !empty($error['content']) ) : ?>
+            <div class="invalid-feedback"><?= $error['content'] ?></div>
+            <?php endif; ?>
+        </div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </fieldset>
+    </form>
+  </div>
+</main>

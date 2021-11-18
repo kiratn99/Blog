@@ -1,0 +1,22 @@
+<nav class="col-md-2 py-3 bg-light">
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+            <a class="nav-link <?php if(substr($template,0,11) == 'admin_posts') echo 'active'; ?>"  href="admin_posts_index.php">
+                <i class="fas fa-newspaper" aria-hidden="true"></i>
+                Gestion des articles
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <?php if(substr($template,0,16) == 'admin_categories') echo 'active'; ?>" href="admin_categories_index.php">
+                <i class="fas fa-tags" aria-hidden="true"></i>
+                Gestion des catégories
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <?php if(substr($template,0,13)  == 'admin_authors') echo 'active'; ?>" href="admin_authors_index.php">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                Gestion des auteurs
+            </a>
+        </li>
+    </ul>
+</nav>
